@@ -5,10 +5,32 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Products {
+    id				Int    	@id @default(autoincrement())
+    name			String
+	description		String
+	price			Int
+	Orders			Orders[]
+}
+
+model User {
+	id				Int		@id @default(autoincrement())
+	name			String
+	email			String
+	Orders			Orders[]
+}
+
+model Orders {
+	id				Int		@id @default(autoincrement())
+	userid			Int
+	User			User	@relation(fields: [userid], references: [id])
+	Products		Products[]
 }
