@@ -25,12 +25,15 @@ model User {
 	id				Int		@id @default(autoincrement())
 	name			String
 	email			String
+	password		String
 	Orders			Orders[]
 }
 
 model Orders {
-	id				Int		@id @default(autoincrement())
+	id				Int			@id @default(autoincrement())
 	userid			Int
-	User			User	@relation(fields: [userid], references: [id])
+	status			String
+	date			DateTime 	@default(now())
+	User			User	 	@relation(fields: [userid], references: [id])
 	Products		Products[]
 }
