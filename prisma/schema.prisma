@@ -15,7 +15,7 @@ datasource db {
 
 model Products {
     id				Int    	@id @default(autoincrement())
-    name			String
+    name			String	@unique
 	description		String
 	price			Int
 	Orders			Orders[]
@@ -23,10 +23,11 @@ model Products {
 
 model User {
 	id				Int		@id @default(autoincrement())
-	name			String
-	email			String
+	name			String	@unique
+	email			String	@unique
 	password		String
 	Orders			Orders[]
+	Tokens			Tokens[]
 }
 
 model Orders {
@@ -36,4 +37,12 @@ model Orders {
 	date			DateTime 	@default(now())
 	User			User	 	@relation(fields: [userid], references: [id])
 	Products		Products[]
+}
+
+model Tokens {
+	id 				Int 		@id @default(autoincrement())
+	userid			Int
+	token			String
+	date			DateTime 	@default(now())
+	User			User		@relation(fields: [userid], references: [id])
 }
